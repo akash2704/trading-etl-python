@@ -6,7 +6,6 @@ import time
 import yfinance as yf
 from kafka import KafkaProducer
 from kafka.errors import NoBrokersAvailable
-import logging
 
 # Import our configs
 from src.settings import (
