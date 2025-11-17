@@ -15,11 +15,11 @@ STOCKS_TO_WATCH = [
 
 # --- Kafka/RedPanda Settings ---
 KAFKA_BROKER_URL = "localhost:9092"
-RAW_DATA_TOPIC = "raw_stock_prices" # This is our 'firehose'
+RAW_DATA_TOPIC = "raw_stock_prices"  # This is our 'firehose'
 
 # --- Ingestion Settings ---
 # Poll yfinance every 5 seconds.
-# ⚠️ Don't go lower, yfinance isn't a real-time API. 
+# ⚠️ Don't go lower, yfinance isn't a real-time API.
 # We're simulating.
 POLL_INTERVAL_SECONDS = 5
 
@@ -27,9 +27,7 @@ POLL_INTERVAL_SECONDS = 5
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.StreamHandler()
-    ]
+    handlers=[logging.StreamHandler()],
 )
 
 log = logging.getLogger(__name__)
