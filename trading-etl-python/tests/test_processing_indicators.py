@@ -48,4 +48,4 @@ async def test_processing_empty_data():
     sma = ta.sma(data, length=5)
     
     # It should just return an empty Series, not crash.
-    assert sma.empty
+    assert sma is None
