@@ -46,7 +46,7 @@ def setup_database():
     This is idempotent - it won't crash if run twice.
     """
     log.info(f"Setting up database table '{TABLE_NAME}'...")
-    
+
     # ⚠️ We are dropping the old table to apply the new schema.
     # This is a one-time operation for this upgrade.
     drop_table_sql = f"DROP TABLE IF EXISTS {TABLE_NAME};"
@@ -87,7 +87,7 @@ def setup_database():
         PRIMARY KEY (time, symbol)
     );
     """
-    
+
     # 2. This is the *magic* TimescaleDB command.
     create_hypertable_sql = f"""
     SELECT create_hypertable(
@@ -96,25 +96,28 @@ def setup_database():
         if_not_exists => TRUE
     );
     """
-    
+
     try:
         with get_db_connection() as conn:
             with conn.cursor() as cur:
-                log.warning(f"--- DROPPING TABLE '{TABLE_NAME}' (if exists) for schema upgrade ---")
+                log.warning(
+                    f"--- DROPPING TABLE '{TABLE_NAME}' (if exists) for schema upgrade ---"
+                )
                 cur.execute(drop_table_sql)
 
                 log.info("Creating new table with full indicator schema...")
                 cur.execute(create_table_sql)
-                
+
                 log.info("Creating hypertable (if not exists)...")
                 cur.execute(create_hypertable_sql)
-                
+
             conn.commit()
         log.info("Database setup complete.")
-            
+
     except Exception as e:
         log.error(f"Error setting up database: {e}")
         raise
+
 
 if __name__ == "__main__":
     setup_database()
