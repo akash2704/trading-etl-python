@@ -11,6 +11,7 @@ dependencies = [
     "pandas>=2.3.3",
     "pandas-ta>=0.4.71b0",
     "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.1",
     "redis>=7.0.1",
     "streamlit>=1.51.0",
     "uvicorn>=0.38.0",
@@ -39,7 +40,7 @@ producer = "src.ingestion.producer:main"
 consumer = "src.processing.consumer:main"
 api = "src.api.main:app"
 dashboard = "src.dashboard.app:streamlit_run"
-
+backfill = "src.db.backfill:main"
 
 [tool.uv]
 package = true

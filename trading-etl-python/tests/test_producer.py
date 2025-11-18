@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, patch, Mock
 
 # We import the *specific function* we want to test
 from src.ingestion.producer import fetch_and_send
@@ -25,7 +25,7 @@ async def test_fetch_and_send_success():
 
     # This is the "spy" producer. We only care about its .send method.
     mock_producer = AsyncMock()
-    mock_producer.send = AsyncMock()  # Spy on the .send() method
+    mock_producer.send = Mock()  # Spy on the .send() method
 
     # 2. THE MOCK
     # We "patch" asyncio.to_thread *as it's seen by the producer module*.
